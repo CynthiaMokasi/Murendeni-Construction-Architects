@@ -9,5 +9,6 @@ Public visitors and verified users will have a structured navigation hierarchy t
 
 # Website Wireframe
 
-<img width="1536" height="1024" alt="WhatsApp Image 2026-08-26 at 10 30 11 (1)" src="https://github.com/user-attachments/assets/17e3f43a-fefc-4e93-bc6c-a69324005e66" />
+<img width="1536" height="1024" alt="WhatsApp Image 2026-08-26 at 10 09 38 (1)" src="https://github.com/user-attachments/assets/e38a45aa-faa5-42a3-b352-037d7cd31ccf" />
+
 
