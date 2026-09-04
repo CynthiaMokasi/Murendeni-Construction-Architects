@@ -1,0 +1,121 @@
+@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+    <div class="container hero-layout">
+        <div class="hero-content">
+            <span class="hero-tag">GET IN TOUCH</span>
+
+            <h1 class="hero-title">
+                Let's Talk About<br>
+                <span class="accent-text">Your Project.</span>
+            </h1>
+
+            <p class="hero-description">
+                Tell us about your site and vision, and let’s explore how we
+                can bring your project to life with the right design solution.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <div class="scroll-icon">↓</div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container contact-layout">
+
+        <div class="contact-form-card">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+            }
+
+            <div asp-validation-summary="ModelOnly" class="field-error"></div>
+
+            <form method="post">
+                <div class="form-row">
+                    <div class="form-field">
+                        <label asp-for="Input.FullName">Full Name</label>
+                        <input asp-for="Input.FullName" placeholder="Your name" />
+                        <span asp-validation-for="Input.FullName" class="field-error"></span>
+                    </div>
+
+                    <div class="form-field">
+                        <label asp-for="Input.Email">Email</label>
+                        <input asp-for="Input.Email" placeholder="your@email.com" />
+                        <span asp-validation-for="Input.Email" class="field-error"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label asp-for="Input.Phone">Phone</label>
+                        <input asp-for="Input.Phone" placeholder="Your phone number" />
+                    </div>
+
+                    <div class="form-field">
+                        <label asp-for="Input.Service">Service</label>
+                        <select asp-for="Input.Service">
+                            <option value="">Select a service</option>
+                            @foreach (var service in Model.ServiceOptions)
+                            {
+                                <option value="@service">@service</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Input.Message">Message</label>
+                    <textarea asp-for="Input.Message" placeholder="Tell us about your site, timeline, and budget"></textarea>
+                    <span asp-validation-for="Input.Message" class="field-error"></span>
+                </div>
+
+                <button type="submit" class="btn btn-accent">Send Inquiry</button>
+            </form>
+        </div>
+
+        <div class="contact-info-card">
+            <h3>Contact Details</h3>
+
+            <div class="contact-info-item">
+                <i class="fa-solid fa-phone"></i>
+                <div>
+                    <h4>Phone</h4>
+                    <p>+27 11 123 4567</p>
+                </div>
+            </div>
+
+            <div class="contact-info-item">
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                    <h4>Email</h4>
+                    <p>info@murendeni.co.za</p>
+                </div>
+            </div>
+
+            <div class="contact-info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                    <h4>Address</h4>
+                    <p>Johannesburg, South Africa</p>
+                </div>
+            </div>
+
+            <!--  <div class="contact-hours"> -->
+            <!--  <h4>Office Hours</h4> -->
+            <!--  <div class="hours-row"><span>Monday – Friday</span><span>08:00 – 17:00</span></div> -->
+            <!--  <div class="hours-row"><span>Saturday</span><span>By appointment</span></div> -->
+            <!--  <div class="hours-row"><span>Sunday</span><span>Closed</span></div> -->
+            <!--  </div> -->
+        </div>
+
+    </div>
+</section>

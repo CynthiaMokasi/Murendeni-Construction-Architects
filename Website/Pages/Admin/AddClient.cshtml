@@ -1,0 +1,45 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.AddClientModel
+@{
+    ViewData["Title"] = "Add Client";
+}
+
+<h1>Add Client</h1>
+
+@if (Model.GeneratedPassword != null)
+{
+    <div class="admin-alert-success">
+        Client created. Temporary password: <strong>@Model.GeneratedPassword</strong>
+        &mdash; make sure to pass this on to them.
+    </div>
+}
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<form method="post">
+    <div class="admin-form-field">
+        <label asp-for="Input.FullName">Full Name</label>
+        <input asp-for="Input.FullName" />
+        <span asp-validation-for="Input.FullName"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Email">Email</label>
+        <input asp-for="Input.Email" />
+        <span asp-validation-for="Input.Email"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Phone">Phone</label>
+        <input asp-for="Input.Phone" />
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.TemporaryPassword">Temporary Password (optional)</label>
+        <input asp-for="Input.TemporaryPassword" placeholder="Leave blank to auto-generate" />
+    </div>
+
+    <button type="submit" class="admin-btn admin-btn-accent">Add Client</button>
+</form>
+
+<p style="margin-top:20px;"><a href="/Admin/ManageClients">&laquo; Back to Manage Clients</a></p>

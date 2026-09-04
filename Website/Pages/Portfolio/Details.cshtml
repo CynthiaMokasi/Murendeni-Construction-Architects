@@ -1,0 +1,48 @@
+@page "{id:int}"
+@model MurendeniConstructionArchitects.Pages.Portfolio.DetailsModel
+@{
+    ViewData["Title"] = Model.Project?.ProfileName ?? "Project";
+}
+
+<section class="section">
+    <div class="container">
+
+        @if (!string.IsNullOrEmpty(Model.Project.CoverImageUrl))
+        {
+            <img src="@Model.Project.CoverImageUrl" alt="@Model.Project.ProfileName" style="width:100%; aspect-ratio:16/7; object-fit:cover; margin-bottom:32px; border-radius:4px;" />
+        }
+        else
+        {
+            <div class="image-placeholder" style="aspect-ratio:16/7; margin-bottom:32px;">Project Photo</div>
+        }
+
+        <div class="grid grid-2" style="align-items:start;">
+            <div>
+                <h1>@Model.Project!.ProfileName</h1>
+                <p>@Model.Project.Description</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-field">
+                        <label>Type</label>
+                        <p>@Model.Project.PropertyType</p>
+                    </div>
+                    <div class="form-field">
+                        <label>Location</label>
+                        <p>@(Model.Project.Location ?? "Johannesburg, South Africa")</p>
+                    </div>
+                    <div class="form-field">
+                        <label>Year</label>
+                        <p>@(Model.Project.YearCompleted?.ToString() ?? "-")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p style="margin-top:32px;">
+            <a href="/Portfolio" class="btn btn-outline" style="color:var(--navy); border-color:var(--navy);">&laquo; Back to Portfolio</a>
+        </p>
+
+    </div>
+</section>

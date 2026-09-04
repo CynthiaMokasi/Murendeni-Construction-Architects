@@ -1,0 +1,53 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<section class="access-denied-section">
+    <div class="container">
+        <div class="access-denied-card">
+
+            <div class="access-denied-grid"></div>
+
+            <div class="access-denied-content">
+
+                <div class="access-denied-icon">
+                    <span>403</span>
+                </div>
+
+                <span class="access-denied-label">RESTRICTED AREA</span>
+
+                <h1>
+                    Access <span class="accent-text">Denied.</span>
+                </h1>
+
+                <p>
+                    It looks like you’ve reached an area that you don’t have
+                    permission to access. Please return to the main site or
+                    sign in with an authorised account.
+                </p>
+
+                <div class="access-denied-actions">
+                    <a href="/" class="btn btn-primary">
+                        Back to Home
+                    </a>
+
+                    <a href="/Account/Login" class="btn btn-secondary">
+                        Sign In
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="architectural-lines line-one"></div>
+            <div class="architectural-lines line-two"></div>
+
+            <div class="corner-mark top-left"></div>
+            <div class="corner-mark top-right"></div>
+            <div class="corner-mark bottom-left"></div>
+            <div class="corner-mark bottom-right"></div>
+
+        </div>
+    </div>
+</section>

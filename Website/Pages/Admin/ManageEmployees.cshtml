@@ -1,0 +1,35 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.ManageEmployeesModel
+@{
+    ViewData["Title"] = "Manage Employees";
+}
+
+<div class="admin-page-header">
+    <h1>Manage Employees</h1>
+    <a href="/Admin/AddEmployee" class="admin-btn admin-btn-accent">+ Add Employee</a>
+</div>
+
+@if (Model.Employees.Count == 0)
+{
+    <div class="admin-empty">No employees yet.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr><th>Name</th><th>Email</th><th>Role</th><th>Hired</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model.Employees)
+            {
+                <tr>
+                    <td>@employee.FullName</td>
+                    <td>@employee.Email</td>
+                    <td><span class="badge badge-review">@employee.Role</span></td>
+                    <td>@employee.HiredAt.ToString("dd MMM yyyy")</td>
+                    <td><a href="/Admin/EditEmployee/@employee.EmployeeId">Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

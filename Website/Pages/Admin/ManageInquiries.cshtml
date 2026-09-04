@@ -1,0 +1,47 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.ManageInquiriesModel
+@{
+    ViewData["Title"] = "Manage Inquiries";
+}
+
+<h1>Manage Inquiries</h1>
+
+<form method="get" style="margin-bottom:20px;">
+    <select name="StatusFilter" class="admin-search" style="width:auto;" onchange="this.form.submit()">
+        @foreach (var option in new[] { "All", "Open", "InProgress", "Resolved", "Closed" })
+        {
+            <option value="@option" selected="@(Model.StatusFilter == option)">@option</option>
+        }
+    </select>
+</form>
+
+@if (Model.Inquiries.Count == 0)
+{
+    <div class="admin-empty">No inquiries found.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inquiry in Model.Inquiries)
+            {
+                <tr>
+                    <td>@(inquiry.Client?.FullName ?? inquiry.GuestName ?? "Unknown")</td>
+                    <td>@(inquiry.ServiceRequested ?? "-")</td>
+                    <td>@inquiry.CreatedAt.ToString("dd MMM yyyy")</td>
+                    <td><span class="badge badge-@inquiry.Status.ToString().ToLower()">@inquiry.Status</span></td>
+                    <td><a href="/Admin/ViewInquiry/@inquiry.InquiryId">View</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

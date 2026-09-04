@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="services-section.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- @ViewData["Title"] is set at the top of each page, e.g. Pages/About.cshtml -->
+    <title>@ViewData["Title"] - Murendeni Construction Architects</title>
+
+    <!-- Two Google Fonts: Archivo for headings, Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="/">
+                <img src="~/images/murendeni side logo.png" alt="Murendeni" class="logo-image" />
+
+            </a>
+
+            <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <a href="/">Home</a>
+                <a href="/Portfolio">Portfolio</a>
+                <a href="/Services">Services</a>
+                <a href="/About">About</a>
+                <a href="/Contact">Contact</a>
+
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a href="/Portal">My Portal</a>
+                    <a href="/Account/Logout">Logout</a>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="nav-login">Login</a>
+                }
+
+                <a href="/Contact" class="btn btn-accent btn-small">Get in Touch</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                <span class="logo-main footer-logo">MURENDENI</span>
+                <p>Architectural design and drafting services based in Johannesburg, South Africa.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <a href="/Portfolio">Portfolio</a>
+                <a href="/Services">Services</a>
+                <a href="/About">About</a>
+                <a href="/Contact">Contact</a>
+            </div>
+
+            <div>
+                <h4>Get In Touch</h4>
+                <p>+27 11 123 4567</p>
+                <p>info@murendeni.co.za</p>
+                <p>Johannesburg, South Africa</p>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            &copy; @DateTime.Now.Year Murendeni Construction Architects. All rights reserved.
+        </div>
+    </footer>
+    <script>
+            // Opens/closes the mobile nav when the hamburger button is tapped.
+            document.addEventListener('DOMContentLoaded', function() {
+                var toggle = document.getElementById('nav-toggle');
+                var nav = document.getElementById('main-nav');
+
+                toggle.addEventListener('click', function() {
+                    var isOpen = nav.classList.toggle('nav-open');
+                    toggle.classList.toggle('is-active', isOpen);
+                    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+            });
+    </script>
+    <!-- Individual pages can add their own <script> blocks using @@section Scripts { ... } -->
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

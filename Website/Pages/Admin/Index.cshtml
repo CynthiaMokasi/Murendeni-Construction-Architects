@@ -1,0 +1,53 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Admin Dashboard</h1>
+
+<div class="admin-stats">
+    @if (Model.CurrentRole != "Designer")
+    {
+        <div class="admin-stat-card">
+            <div class="label">Clients</div>
+            <div class="value">@Model.ClientCount</div>
+        </div>
+    }
+    <div class="admin-stat-card">
+        <div class="label">@(Model.CurrentRole == "Designer" ? "My Projects" : "Projects")</div>
+        <div class="value">@Model.ProjectCount</div>
+    </div>
+    @if (Model.CurrentRole != "Designer")
+    {
+        <div class="admin-stat-card">
+            <div class="label">Inquiries</div>
+            <div class="value">@Model.InquiryCount</div>
+        </div>
+    }
+    <div class="admin-stat-card">
+        <div class="label">@(Model.CurrentRole == "Designer" ? "My Files" : "Files")</div>
+        <div class="value">@Model.FileCount</div>
+    </div>
+</div>
+
+<h2>Recent Activity</h2>
+
+@if (Model.RecentActivity.Count == 0)
+{
+    <div class="admin-empty">Nothing has happened yet.</div>
+}
+else
+{
+    <table class="admin-table">
+        <tbody>
+            @foreach (var item in Model.RecentActivity)
+            {
+                <tr>
+                    <td>@item.Description</td>
+                    <td style="text-align:right; color:#888;">@item.When.ToString("dd MMM yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,29 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Portal.AccountSettingsModel
+@{
+    ViewData["Title"] = "Account Settings";
+}
+
+<h1>Account Settings</h1>
+
+@if (Model.SuccessMessage != null)
+{
+    <div class="admin-alert-success">@Model.SuccessMessage</div>
+}
+
+<form method="post">
+    <div class="admin-form-field">
+        <label asp-for="Input.FullName">Full Name</label>
+        <input asp-for="Input.FullName" />
+        <span asp-validation-for="Input.FullName"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Phone">Phone</label>
+        <input asp-for="Input.Phone" />
+    </div>
+
+    <button type="submit" class="admin-btn admin-btn-accent">Save Changes</button>
+</form>
+
+<p style="margin-top:28px;"><a href="/Portal/ChangePassword">Change Password &rsaquo;</a></p>

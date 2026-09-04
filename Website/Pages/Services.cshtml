@@ -1,0 +1,118 @@
+@page
+@model ServicesModel
+@{
+    ViewData["Title"] = "Services";
+    var icons = new[] { "fa-drafting-compass", "fa-cube", "fa-map-location-dot", "fa-clipboard-list", "fa-building", "fa-ruler-combined" };
+    var i = 0;
+}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+    <div class="container hero-layout">
+        <div class="hero-content">
+            <span class="hero-tag">WHAT WE OFFER</span>
+
+            <h1 class="hero-title">
+                Design Solutions<br>
+                <span class="accent-text">Built Around You.</span>
+            </h1>
+
+            <p class="hero-description">
+                From the first sketch to final approval, we provide practical
+                architectural drafting and design services tailored to your project.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <div class="scroll-icon">↓</div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="services-detail-grid">
+            @foreach (var service in Model.Services)
+            {
+                var icon = icons[i % icons.Length];
+                i++;
+                <div class="service-detail-card">
+                    <i class="fa-solid @icon"></i>
+                    <h3>@service.Title</h3>
+                    <p>@service.Description</p>
+                    <a href="/Contact" class="service-link">Enquire about this <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="process-section">
+    <div class="container">
+        <div class="section-label" style="text-align:center;">HOW IT WORKS</div>
+        <h2 class="section-title" style="text-align:center;">Working With Us, Step by Step</h2>
+
+        <div class="process-grid">
+            <div class="process-step">
+                <span class="process-number">1</span>
+                <h3>Enquiry</h3>
+                <p>Send us your brief through the contact form. We'll reply within one business day.</p>
+            </div>
+            <div class="process-step">
+                <span class="process-number">2</span>
+                <h3>Scope &amp; Quote</h3>
+                <p>We assess your site and requirements and send a fixed-scope quote — no surprises later.</p>
+            </div>
+            <div class="process-step">
+                <span class="process-number">3</span>
+                <h3>Design &amp; Drafting</h3>
+                <p>Concepts, renders, and drawings move forward with your sign-off at every stage.</p>
+            </div>
+            <div class="process-step">
+                <span class="process-number">4</span>
+                <h3>Handover</h3>
+                <p>Final documentation is delivered ready for permitting and construction.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-label">QUESTIONS</span>
+            <h2 class="section-title">Common Questions</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <h4>How long does drafting typically take?</h4>
+                <p>Most residential projects take 3–6 weeks from signed-off concept to final construction documents, depending on scope and revisions.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Do you handle council submissions?</h4>
+                <p>Yes — our construction documents are prepared to meet local approval requirements, and we can liaise directly with your council if needed.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I combine services, like 3D rendering with full drafting?</h4>
+                <p>Absolutely. Most clients bundle drafting, rendering, and construction documents into a single scope — we'll quote it as one project.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What do you need from me to get started?</h4>
+                <p>A rough brief, your site address or plot details, and a budget range are enough for us to put together an initial quote.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container cta-layout">
+        <h2 class="cta-title">Ready to Start?</h2>
+        <p class="cta-description">Tell us which service you need and we'll get back to you within one business day.</p>
+        <a href="/Contact" class="btn btn-accent">Start Your Project</a>
+    </div>
+</section>

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "MurendeniConstructionArchitects": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:60575;http://localhost:60576"
+    }
+  }
+}

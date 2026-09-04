@@ -1,0 +1,56 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.ManageProjectsModel
+@{
+    ViewData["Title"] = "Manage Projects";
+}
+
+<div class="admin-page-header">
+    <h1>Manage Projects</h1>
+    <a href="/Admin/AddProject" class="admin-btn admin-btn-accent">+ Add Project</a>
+</div>
+
+<form method="get" style="margin-bottom:20px; display:flex; gap:10px; align-items:center;">
+    <input type="text" name="Search" class="admin-search" placeholder="Search project..." value="@Model.Search" />
+
+    <select name="StatusFilter" class="admin-search" style="width:auto;">
+        @foreach (var option in new[] { "All", "Inquiry", "InProgress", "Review", "Completed" })
+        {
+            <option value="@option" selected="@(Model.StatusFilter == option)">@option</option>
+        }
+    </select>
+
+    <button type="submit" class="admin-btn admin-btn-outline">Filter</button>
+</form>
+
+@if (Model.Projects.Count == 0)
+{
+    <div class="admin-empty">No projects found.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Client</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Published</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.Projects)
+            {
+                <tr>
+                    <td>@project.ProfileName</td>
+                    <td>@(project.Client?.FullName ?? "-")</td>
+                    <td>@project.PropertyType</td>
+                    <td><span class="badge badge-@project.Status.ToString().ToLower()">@project.Status</span></td>
+                    <td>@(project.IsPublished ? "Yes" : "No")</td>
+                    <td><a href="/Admin/EditProject/@project.ProfileId">Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

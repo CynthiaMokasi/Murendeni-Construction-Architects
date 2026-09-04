@@ -1,0 +1,54 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Portal.IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="admin-page-header">
+    <div>
+        <h1>Welcome back, @Model.ClientName</h1>
+        <p class="admin-page-subtitle">Here's an overview of your projects with us.</p>
+    </div>
+</div>
+
+<div class="admin-stats">
+    <div class="admin-stat-card">
+        <div class="label">Total Projects</div>
+        <div class="value">@Model.TotalProjects</div>
+    </div>
+    <div class="admin-stat-card">
+        <div class="label">In Progress</div>
+        <div class="value">@Model.InProgressCount</div>
+    </div>
+    <div class="admin-stat-card">
+        <div class="label">Completed</div>
+        <div class="value">@Model.CompletedCount</div>
+    </div>
+</div>
+
+<div class="admin-section-header">
+    <h2>Recent Projects</h2>
+</div>
+
+@if (Model.RecentProjects.Count == 0)
+{
+    <div class="admin-empty">You don't have any projects yet. <a href="/Contact">Get in touch</a> to start one.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr><th>Project</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.RecentProjects)
+            {
+                <tr>
+                    <td>@project.ProfileName</td>
+                    <td><span class="badge badge-@project.Status.ToString().ToLower()">@project.Status</span></td>
+                    <td><a href="/Portal/ProjectDetails/@project.ProfileId" class="admin-table-link">View Details &rsaquo;</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

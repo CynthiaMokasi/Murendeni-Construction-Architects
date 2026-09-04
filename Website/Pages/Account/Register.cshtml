@@ -1,0 +1,1041 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Account.RegisterModel
+
+@{
+    ViewData["Title"] = "Create Account - Murendeni";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"]</title>
+
+
+    <!-- Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+          rel="stylesheet">
+
+
+    <!-- Site CSS -->
+
+    <link rel="stylesheet"
+          href="~/css/site.css" />
+
+
+    <style>
+
+            /* =========================================================
+                       RESET
+                       ========================================================= */
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                min-height: 100%;
+            }
+
+            body {
+                font-family: "Inter", sans-serif;
+                background: #07101d;
+                color: #ffffff;
+            }
+
+
+            /* =========================================================
+                       NAVIGATION
+                       ========================================================= */
+
+            .register-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 72px;
+                z-index: 1000;
+                background: rgba(5, 14, 26, 0.96);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+            }
+
+
+            .register-header-inner {
+                width: 100%;
+                max-width: 1400px;
+                height: 100%;
+                margin: 0 auto;
+                padding: 0 40px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+
+            /* Logo */
+
+            .register-logo {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+            }
+
+
+            .register-logo-image {
+                height: 48px;
+                width: auto;
+                display: block;
+                object-fit: contain;
+            }
+
+
+            /* Navigation */
+
+            .register-nav {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+            }
+
+
+                .register-nav a {
+                    position: relative;
+                    color: #e7ebef;
+                    text-decoration: none;
+                    font-size: 14px;
+                    font-weight: 500;
+                    transition: color 0.2s ease, opacity 0.2s ease;
+                }
+
+
+                    .register-nav a:hover {
+                        color: #d3a33d;
+                    }
+
+
+                    /* Navigation underline */
+
+                    .register-nav a:not(.register-nav-login):not(.register-nav-contact)::after {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        bottom: -7px;
+                        width: 0;
+                        height: 1px;
+                        background: #d3a33d;
+                        transition: width 0.25s ease;
+                    }
+
+
+                    .register-nav a:not(.register-nav-login):not(.register-nav-contact):hover::after {
+                        width: 100%;
+                    }
+
+
+            /* Login */
+
+            .register-nav-login {
+                padding: 9px 17px;
+                border: 1px solid rgba(255, 255, 255, 0.30);
+                border-radius: 5px;
+            }
+
+
+                .register-nav-login:hover {
+                    border-color: #d3a33d;
+                }
+
+
+            /* Get in touch */
+
+            .register-nav-contact {
+                padding: 10px 19px;
+                border-radius: 5px;
+                background: #c99a38;
+                color: #ffffff !important;
+                font-weight: 600 !important;
+                transition: background 0.2s ease, transform 0.2s ease;
+            }
+
+
+                .register-nav-contact:hover {
+                    background: #d9aa48;
+                    transform: translateY(-1px);
+                }
+
+
+            /* =========================================================
+                       MAIN REGISTER AREA
+
+                       background.png is ONE image containing:
+                       blueprint + building
+                       ========================================================= */
+
+            .register-page {
+                position: relative;
+                min-height: calc(100vh - 72px);
+                margin-top: 72px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 45px 30px;
+                overflow: hidden;
+                background-image: url('/images/background.png');
+                background-position: center center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+
+                /* =========================================================
+                       BACKGROUND OVERLAY
+                       ========================================================= */
+
+                .register-page::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: 1;
+                    background: linear-gradient( 90deg, rgba(4, 13, 24, 0.94) 0%, rgba(4, 13, 24, 0.90) 38%, rgba(4, 13, 24, 0.68) 48%, rgba(4, 13, 24, 0.12) 62%, rgba(4, 13, 24, 0.04) 100% );
+                    pointer-events: none;
+                }
+
+
+                .register-page::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: 2;
+                    background: linear-gradient( 180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.12) );
+                    pointer-events: none;
+                }
+
+
+            /* =========================================================
+                       REGISTER CONTENT
+                       ========================================================= */
+
+            .register-content {
+                position: relative;
+                z-index: 5;
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                padding-left: 4%;
+            }
+
+
+            /* =========================================================
+                       REGISTER CARD
+                       ========================================================= */
+
+            .register-card {
+                width: min(100%, 500px);
+                padding: 32px 40px 36px;
+                background: linear-gradient( 145deg, rgba(10, 24, 40, 0.96), rgba(5, 16, 29, 0.97) );
+                border: 1px solid rgba(135, 158, 181, 0.22);
+                border-radius: 14px;
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+            }
+
+
+            /* =========================================================
+                       LOGO
+                       ========================================================= */
+
+            .register-card-logo {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+
+                .register-card-logo img {
+                    height: 75px;
+                    width: auto;
+                    max-width: 220px;
+                    display: block;
+                    object-fit: contain;
+                }
+
+
+            /* =========================================================
+                       HEADING
+                       ========================================================= */
+
+            .register-heading {
+                margin: 0;
+                text-align: center;
+                font-family: "Archivo", sans-serif;
+                font-size: 28px;
+                line-height: 1.2;
+                font-weight: 700;
+                color: #ffffff;
+                letter-spacing: -0.4px;
+            }
+
+
+            .register-subtext {
+                margin: 9px 0 25px;
+                text-align: center;
+                color: #a5afbb;
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+
+            /* =========================================================
+                       VALIDATION SUMMARY
+                       ========================================================= */
+
+            .validation-summary {
+                margin-bottom: 18px;
+                padding: 12px 14px;
+                background: rgba(190, 45, 45, 0.14);
+                border: 1px solid rgba(230, 80, 80, 0.45);
+                border-radius: 7px;
+                color: #ffaaaa;
+                font-size: 13px;
+            }
+
+
+                .validation-summary:empty {
+                    display: none;
+                }
+
+
+                .validation-summary ul {
+                    margin: 0;
+                    padding-left: 18px;
+                }
+
+
+            /* =========================================================
+                       FORM
+                       ========================================================= */
+
+            .register-form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+
+            .form-field {
+                display: flex;
+                flex-direction: column;
+            }
+
+
+                .form-field label {
+                    margin-bottom: 7px;
+                    color: #ffffff;
+                    font-size: 13px;
+                    font-weight: 500;
+                }
+
+
+            /* =========================================================
+                       INPUT WRAPPER
+                       ========================================================= */
+
+            .register-input-wrapper {
+                position: relative;
+                width: 100%;
+            }
+
+
+            .form-field input {
+                width: 100%;
+                height: 50px;
+                padding: 0 16px;
+                background: rgba(255, 255, 255, 0.045);
+                border: 1px solid rgba(126, 151, 178, 0.20);
+                border-radius: 8px;
+                color: #ffffff;
+                font-family: "Inter", sans-serif;
+                font-size: 13px;
+                outline: none;
+                transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            }
+
+
+                .form-field input::placeholder {
+                    color: #6f7c8b;
+                }
+
+
+                .form-field input:focus {
+                    border-color: #c99a38;
+                    background: rgba(255, 255, 255, 0.06);
+                    box-shadow: 0 0 0 3px rgba(201, 154, 56, 0.08);
+                }
+
+
+            /* Password inputs */
+
+            .register-input-wrapper input {
+                padding-right: 48px;
+            }
+
+
+            /* =========================================================
+                       PASSWORD BUTTON
+                       ========================================================= */
+
+            .password-toggle {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                width: 28px;
+                height: 28px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateY(-50%);
+                border: 0;
+                background: transparent;
+                color: #8995a3;
+                cursor: pointer;
+            }
+
+
+                .password-toggle:hover {
+                    color: #d3a33d;
+                }
+
+
+            /* =========================================================
+                       FIELD VALIDATION
+                       ========================================================= */
+
+            .field-validation-error {
+                margin-top: 5px;
+                color: #ff9c9c;
+                font-size: 11px;
+            }
+
+
+            .input-validation-error {
+                border-color: rgba(230, 80, 80, 0.65) !important;
+            }
+
+
+            /* =========================================================
+                       REGISTER BUTTON
+                       ========================================================= */
+
+            .register-button {
+                width: 100%;
+                height: 54px;
+                margin-top: 5px;
+                border: 0;
+                border-radius: 8px;
+                background: linear-gradient( 135deg, #c8952f, #d5a63f );
+                color: #ffffff;
+                font-family: "Archivo", sans-serif;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 0 8px 22px rgba(180, 130, 35, 0.18);
+                transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            }
+
+
+                .register-button:hover {
+                    transform: translateY(-1px);
+                    background: linear-gradient( 135deg, #d3a33c, #e0b34d );
+                    box-shadow: 0 12px 28px rgba(180, 130, 35, 0.25);
+                }
+
+
+                .register-button:active {
+                    transform: translateY(0);
+                }
+
+
+            /* =========================================================
+                       LOGIN LINK
+                       ========================================================= */
+
+            .register-login {
+                margin-top: 21px;
+                text-align: center;
+                color: #9ba5b0;
+                font-size: 13px;
+            }
+
+
+                .register-login a {
+                    color: #d2a03a;
+                    text-decoration: none;
+                    font-weight: 500;
+                }
+
+
+                    .register-login a:hover {
+                        color: #e6bb5b;
+                        text-decoration: underline;
+                    }
+
+
+            /* =========================================================
+                       RESPONSIVE
+                       ========================================================= */
+
+            @@media (max-width: 1100px) {
+
+                .register-header-inner {
+                    padding: 0 25px;
+                }
+
+
+                .register-nav {
+                    gap: 18px;
+                }
+
+
+                .register-content {
+                    padding-left: 0;
+                    justify-content: center;
+                }
+            }
+
+
+            @@media (max-width: 900px) {
+
+                .register-header {
+                    height: 68px;
+                }
+
+
+                .register-page {
+                    margin-top: 68px;
+                    min-height: calc(100vh - 68px);
+                    padding: 30px 20px;
+                }
+
+
+                .register-header-inner {
+                    padding: 0 20px;
+                }
+
+
+                .register-nav {
+                    gap: 12px;
+                }
+
+
+                    .register-nav a:not(.register-nav-login):not(.register-nav-contact) {
+                        display: none;
+                    }
+
+
+                .register-nav-login {
+                    padding: 8px 14px;
+                }
+
+
+                .register-nav-contact {
+                    padding: 9px 14px;
+                }
+
+
+                .register-content {
+                    justify-content: center;
+                    padding: 0;
+                }
+
+
+                .register-page::before {
+                    background: linear-gradient( 90deg, rgba(4, 13, 24, 0.92), rgba(4, 13, 24, 0.80) );
+                }
+            }
+
+
+            @@media (max-width: 600px) {
+
+                .register-logo-image {
+                    height: 42px;
+                }
+
+
+                .register-nav-contact {
+                    display: none;
+                }
+
+
+                .register-page {
+                    padding: 20px 15px;
+                }
+
+
+                .register-card {
+                    padding: 28px 21px 30px;
+                    border-radius: 12px;
+                }
+
+
+                .register-card-logo img {
+                    height: 68px;
+                }
+
+
+                .register-heading {
+                    font-size: 25px;
+                }
+
+
+                .register-subtext {
+                    margin-bottom: 22px;
+                }
+
+
+                .form-field input {
+                    height: 50px;
+                }
+            }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         NAVIGATION
+         ========================================================= -->
+
+    <header class="register-header">
+
+        <div class="register-header-inner">
+
+
+            <!-- Logo -->
+
+            <a href="/"
+               class="register-logo">
+
+                <img src="~/images/murendeni side logo.png"
+                     alt="Murendeni Construction Architects"
+                     class="register-logo-image" />
+
+            </a>
+
+
+            <!-- Navigation -->
+
+            <nav class="register-nav">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/Portfolio">
+                    Portfolio
+                </a>
+
+                <a href="/Services">
+                    Services
+                </a>
+
+                <a href="/About">
+                    About
+                </a>
+
+                <a href="/Contact">
+                    Contact
+                </a>
+
+                <a href="/Account/Login"
+                   class="register-nav-login">
+                    Login
+                </a>
+
+                <a href="/Contact"
+                   class="register-nav-contact">
+                    Get in Touch
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         REGISTER PAGE
+         ========================================================= -->
+
+    <main class="register-page">
+
+
+        <div class="register-content">
+
+            <div class="register-card">
+
+
+                <!-- Logo -->
+
+                <div class="register-card-logo">
+
+                    <img src="~/images/murendeni side logo.png"
+                         alt="Murendeni Construction Architects" />
+
+                </div>
+
+
+                <!-- Heading -->
+
+                <h1 class="register-heading">
+                    Create Account
+                </h1>
+
+
+                <p class="register-subtext">
+                    Create your account to manage your projects
+                </p>
+
+
+                <!-- Validation Summary -->
+
+                <div asp-validation-summary="ModelOnly"
+                     class="validation-summary">
+                </div>
+
+
+                <!-- Registration Form -->
+
+                <form method="post"
+                      class="register-form">
+
+
+                    <!-- Full Name -->
+
+                    <div class="form-field">
+
+                        <label asp-for="Input.FullName">
+                            Full Name
+                        </label>
+
+                        <input asp-for="Input.FullName"
+                               placeholder="Your full name"
+                               autocomplete="name" />
+
+                        <span asp-validation-for="Input.FullName"
+                              class="field-validation-error">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Email -->
+
+                    <div class="form-field">
+
+                        <label asp-for="Input.Email">
+                            Email
+                        </label>
+
+                        <input asp-for="Input.Email"
+                               type="email"
+                               placeholder="your@email.com"
+                               autocomplete="email" />
+
+                        <span asp-validation-for="Input.Email"
+                              class="field-validation-error">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Phone -->
+
+                    <div class="form-field">
+
+                        <label asp-for="Input.Phone">
+                            Phone
+                        </label>
+
+                        <input asp-for="Input.Phone"
+                               type="tel"
+                               placeholder="Your phone number"
+                               autocomplete="tel" />
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-field">
+
+                        <label asp-for="Input.Password">
+                            Password
+                        </label>
+
+                        <div class="register-input-wrapper">
+
+                            <input asp-for="Input.Password"
+                                   id="registerPassword"
+                                   type="password"
+                                   placeholder="Create a password"
+                                   autocomplete="new-password" />
+
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    id="registerPasswordToggle"
+                                    aria-label="Show password">
+
+                                <svg id="registerPasswordIcon"
+                                     width="19"
+                                     height="19"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="1.8">
+
+                                    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z">
+                                    </path>
+
+                                    <circle cx="12"
+                                            cy="12"
+                                            r="2.5">
+                                    </circle>
+
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                        <span asp-validation-for="Input.Password"
+                              class="field-validation-error">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Confirm Password -->
+
+                    <div class="form-field">
+
+                        <label asp-for="Input.ConfirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="register-input-wrapper">
+
+                            <input asp-for="Input.ConfirmPassword"
+                                   id="confirmPassword"
+                                   type="password"
+                                   placeholder="Confirm your password"
+                                   autocomplete="new-password" />
+
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    id="confirmPasswordToggle"
+                                    aria-label="Show password">
+
+                                <svg id="confirmPasswordIcon"
+                                     width="19"
+                                     height="19"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="1.8">
+
+                                    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z">
+                                    </path>
+
+                                    <circle cx="12"
+                                            cy="12"
+                                            r="2.5">
+                                    </circle>
+
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                        <span asp-validation-for="Input.ConfirmPassword"
+                              class="field-validation-error">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Register -->
+
+                    <button type="submit"
+                            class="register-button">
+
+                        Create Account
+
+                    </button>
+
+                </form>
+
+
+                <!-- Login -->
+
+                <div class="register-login">
+
+                    Already have an account?
+
+                    <a href="/Account/Login">
+                        Login
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         PASSWORD VISIBILITY
+         ========================================================= -->
+
+    <script>
+
+            function setupPasswordToggle(
+                inputId,
+                buttonId,
+                iconId
+            ) {
+
+                const input =
+                    document.getElementById(inputId);
+
+                const button =
+                    document.getElementById(buttonId);
+
+                const icon =
+                    document.getElementById(iconId);
+
+
+                if (!input || !button || !icon) {
+                    return;
+                }
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        const isPassword =
+                            input.type === "password";
+
+
+                        input.type =
+                            isPassword
+                                ? "text"
+                                : "password";
+
+
+                        button.setAttribute(
+                            "aria-label",
+                            isPassword
+                                ? "Hide password"
+                                : "Show password"
+                        );
+
+
+                        if (isPassword) {
+
+                            icon.innerHTML = `
+
+                                        <path d="M3 3l18 18">
+                                        </path>
+
+                                        <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8">
+                                        </path>
+
+                                        <path d="M9.9 5.2A10.5 10.5 0 0 1 12 5c6.5 0 10 7 10 7a18.8 18.8 0 0 1-3.2 3.8">
+                                        </path>
+
+                                        <path d="M6.2 6.2C3.6 8.1 2 12 2 12s3.5 7 10 7a9.8 9.8 0 0 0 4-.8">
+                                        </path>
+
+                                    `;
+
+                        }
+                        else {
+
+                            icon.innerHTML = `
+
+                                        <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z">
+                                        </path>
+
+                                        <circle cx="12"
+                                                cy="12"
+                                                r="2.5">
+                                        </circle>
+
+                                    `;
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            setupPasswordToggle(
+                "registerPassword",
+                "registerPasswordToggle",
+                "registerPasswordIcon"
+            );
+
+
+            setupPasswordToggle(
+                "confirmPassword",
+                "confirmPasswordToggle",
+                "confirmPasswordIcon"
+            );
+
+    </script>
+
+
+</body>
+
+</html>

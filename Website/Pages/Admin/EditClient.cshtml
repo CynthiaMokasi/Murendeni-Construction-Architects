@@ -1,0 +1,62 @@
+﻿@page "{id:int}"
+@model MurendeniConstructionArchitects.Pages.Admin.EditClientModel
+@{
+    ViewData["Title"] = "Edit Client";
+}
+
+<h1>Edit Client</h1>
+
+@if (Model.SuccessMessage != null)
+{
+    <div class="admin-alert-success">@Model.SuccessMessage</div>
+}
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<form method="post">
+    <div class="admin-form-field">
+        <label asp-for="Input.FullName">Full Name</label>
+        <input asp-for="Input.FullName" />
+        <span asp-validation-for="Input.FullName"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Email">Email</label>
+        <input asp-for="Input.Email" />
+        <span asp-validation-for="Input.Email"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Phone">Phone</label>
+        <input asp-for="Input.Phone" />
+    </div>
+
+    <button type="submit" class="admin-btn admin-btn-accent">Save Changes</button>
+</form>
+
+<h2 style="margin-top:36px;">Projects</h2>
+
+@if (Model.Projects.Count == 0)
+{
+    <div class="admin-empty">This client has no projects yet.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr><th>Project</th><th>Type</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.Projects)
+            {
+                <tr>
+                    <td>@project.ProfileName</td>
+                    <td>@project.PropertyType</td>
+                    <td><span class="badge badge-@project.Status.ToString().ToLower()">@project.Status</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p style="margin-top:20px;"><a href="/Admin/ManageClients">&laquo; Back to Manage Clients</a></p>

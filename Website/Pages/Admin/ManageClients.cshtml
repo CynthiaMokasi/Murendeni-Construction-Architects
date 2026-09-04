@@ -1,0 +1,44 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.ManageClientsModel
+@{
+    ViewData["Title"] = "Manage Clients";
+}
+
+<div class="admin-page-header">
+    <h1>Manage Clients</h1>
+    <a href="/Admin/AddClient" class="admin-btn admin-btn-accent">+ Add Client</a>
+</div>
+
+<form method="get" style="margin-bottom:20px;">
+    <input type="text" name="Search" class="admin-search" placeholder="Search client..." value="@Model.Search" />
+    <button type="submit" class="admin-btn admin-btn-outline">Search</button>
+</form>
+
+@if (Model.Clients.Count == 0)
+{
+    <div class="admin-empty">No clients found.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Projects</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var client in Model.Clients)
+            {
+                <tr>
+                    <td>@client.FullName</td>
+                    <td>@client.Email</td>
+                    <td>@client.ProjectCount</td>
+                    <td><a href="/Admin/EditClient/@client.ClientId">View / Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

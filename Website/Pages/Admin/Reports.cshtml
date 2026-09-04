@@ -1,0 +1,103 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.ReportsModel
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<h1>Reports</h1>
+
+<div class="admin-stats">
+    <div class="admin-stat-card">
+        <div class="label">Total Projects</div>
+        <div class="value">@Model.TotalProjects</div>
+    </div>
+    <div class="admin-stat-card">
+        <div class="label">Active Projects</div>
+        <div class="value">@Model.ActiveProjects</div>
+    </div>
+    <div class="admin-stat-card">
+        <div class="label">Completed Projects</div>
+        <div class="value">@Model.CompletedProjects</div>
+    </div>
+    <div class="admin-stat-card">
+        <div class="label">Total Clients</div>
+        <div class="value">@Model.TotalClients</div>
+    </div>
+</div>
+
+<form method="get" style="display:flex; gap:12px; align-items:flex-end; margin-bottom:24px;" id="report-filter-form">
+    <div class="admin-form-field" style="margin-bottom:0;">
+        <label>Report Type</label>
+        <select name="ReportType">
+            <option value="Projects" selected="@(Model.ReportType == "Projects")">Project Report</option>
+            <option value="Clients" selected="@(Model.ReportType == "Clients")">Client Report</option>
+            <option value="Inquiries" selected="@(Model.ReportType == "Inquiries")">Inquiry Report</option>
+        </select>
+    </div>
+
+    <div class="admin-form-field" style="margin-bottom:0;">
+        <label>From Date</label>
+        <input type="date" name="FromDate" value="@Model.FromDate.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="admin-form-field" style="margin-bottom:0;">
+        <label>To Date</label>
+        <input type="date" name="ToDate" value="@Model.ToDate.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <button type="submit" class="admin-btn admin-btn-accent">Generate Report</button>
+</form>
+
+@if (Model.Rows.Count == 0)
+{
+    <div class="admin-empty">No records in this date range.</div>
+}
+else
+{
+    <table class="admin-table" id="report-table">
+        <thead>
+            <tr>
+                @foreach (var header in Model.ColumnHeaders)
+                {
+                    <th>@header</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Rows)
+            {
+                <tr>
+                    <td>@row.ColumnA</td>
+                    <td>@row.ColumnB</td>
+                    <td>@row.ColumnC</td>
+                    <td>@row.ColumnD</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div style="margin-top:20px; display:flex; gap:10px;">
+    <a asp-page-handler="ExportCsv"
+       asp-route-ReportType="@Model.ReportType"
+       asp-route-FromDate="@Model.FromDate.ToString("yyyy-MM-dd")"
+       asp-route-ToDate="@Model.ToDate.ToString("yyyy-MM-dd")"
+       class="admin-btn admin-btn-outline">
+        Export Excel (CSV)
+    </a>
+
+    <button type="button" onclick="window.print()" class="admin-btn admin-btn-outline">
+        Export PDF (Print)
+    </button>
+</div>
+
+@section Scripts {
+    <style>
+        /* When printing (or "Save as PDF"), hide everything except the report table itself. */
+        @@media print {
+            .admin-sidebar, #report-filter-form, .admin-stats, .admin-btn {
+                display: none !important;
+            }
+        }
+    </style>
+}

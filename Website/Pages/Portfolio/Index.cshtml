@@ -1,0 +1,97 @@
+@page
+@model MurendeniConstructionArchitects.Pages.Portfolio.IndexModel
+@{
+    ViewData["Title"] = "Portfolio";
+}
+
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+    <div class="container hero-layout">
+        <div class="hero-content">
+            <span class="hero-tag">OUR PORTFOLIO</span>
+
+            <h1 class="hero-title">
+                Designs That<br>
+                <span class="accent-text">Bring Ideas to Life.</span>
+            </h1>
+
+            <p class="hero-description">
+                Explore a selection of our residential and commercial projects,
+                showcasing thoughtful design, precision drafting, and practical
+                architectural solutions.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <div class="scroll-icon">↓</div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <div class="filter-tabs" id="filter-tabs">
+            <button type="button" class="active" data-filter="all">All</button>
+            <button type="button" data-filter="residential">Residential</button>
+            <button type="button" data-filter="commercial">Commercial</button>
+        </div>
+
+        @if (Model.Projects.Count == 0)
+        {
+            <p>No published projects yet - check back soon.</p>
+        }
+        else
+        {
+            <div class="grid grid-3" id="project-grid">
+                @foreach (var project in Model.Projects)
+                {
+                    // data-type is lower case so it matches the button's data-filter value exactly.
+                    <div class="card project-card" data-type="@project.PropertyType.ToString().ToLower()">
+                        @if (!string.IsNullOrEmpty(project.CoverImageUrl))
+                        {
+                            <img src="@project.CoverImageUrl" alt="@project.ProfileName" style="width:100%; aspect-ratio:4/3; object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <div class="image-placeholder">Project Photo</div>
+                        }
+                        <div class="card-body">
+                            <span class="project-type-badge">@project.PropertyType</span>
+                            <h3>@project.ProfileName</h3>
+                            <a href="/Portfolio/Details/@project.ProfileId">View Details &rsaquo;</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Simple client-side filter: show/hide project cards based on which
+        // tab is active. No page reload needed since all projects are
+        // already on the page.
+        const buttons = document.querySelectorAll('#filter-tabs button');
+        const cards = document.querySelectorAll('.project-card');
+
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // Update which button looks "active"
+                buttons.forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                cards.forEach(function (card) {
+                    const matches = filter === 'all' || card.getAttribute('data-type') === filter;
+                    card.style.display = matches ? '' : 'none';
+                });
+            });
+        });
+    </script>
+}

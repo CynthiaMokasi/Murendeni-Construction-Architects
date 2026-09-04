@@ -1,0 +1,229 @@
+@page
+@model IndexModel
+@using MurendeniConstructionArchitects.Models
+@{
+    ViewData["Title"] = "Home - Precision Design. Built for You.";
+}
+
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+    <div class="container hero-layout">
+        <div class="hero-content">
+            <span class="hero-tag">ARCHITECTURAL DRAFTING &amp; DESIGN</span>
+            <h1 class="hero-title">
+                Precision Design.<br>
+                <span class="accent-text">Built for You.</span>
+            </h1>
+            <p class="hero-description">
+                From first sketch to construction-ready drawings, we turn your vision into buildable plans — for homes, developments, and everything in between.
+            </p>
+            <div class="hero-buttons">
+                <a href="/Portfolio" class="btn btn-primary">View Our Work</a>
+                <a href="/Contact" class="btn btn-secondary">Start Your Project</a>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <div class="scroll-icon">↓</div>
+    </div>
+</section>
+
+
+
+<!-- SERVICES SECTION -->
+<section class="services-section">
+    <div class="container">
+        <div class="section-label">OUR SERVICES</div>
+        <h2 class="section-title">Services Built Around Your Project</h2>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="service-icon fa-solid fa-drafting-compass"></i>
+                <h3>Architectural Drafting</h3>
+                <p>Detailed, code-compliant drawings that turn your ideas into a clear blueprint for construction.</p>
+            </div>
+            <div class="service-card">
+                <i class="service-icon fa-solid fa-cube"></i>
+                <h3>3D Rendering</h3>
+                <p>Walk through your space before it's built with photorealistic renders that bring every detail to life.</p>
+            </div>
+            <div class="service-card">
+                <i class="service-icon fa-solid fa-map-location-dot"></i>
+                <h3>Site Planning</h3>
+                <p>Thorough site analysis and layout planning that gets the most out of your land from day one.</p>
+            </div>
+            <div class="service-card">
+                <i class="service-icon fa-solid fa-clipboard-list"></i>
+                <h3>Construction Documents</h3>
+                <p>Comprehensive, contractor-ready documentation that keeps your build on time and on budget.</p>
+            </div>
+            <div class="service-card">
+                <i class="service-icon fa-solid fa-building"></i>
+                <h3>BIM Modeling</h3>
+                <p>Coordinated 3D building models that catch clashes early and keep every trade on the same page.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED PROJECTS SECTION -->
+<section class="featured-section">
+    <div class="container">
+        <div class="section-label">OUR PORTFOLIO</div>
+        <h2 class="section-title">Featured Projects</h2>
+
+        @if (Model.FeaturedProjects.Count > 0)
+        {
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="Residential">Residential</button>
+                <button class="filter-btn" data-category="Commercial">Commercial</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                @foreach (var project in Model.FeaturedProjects)
+                {
+                    <div class="project-card" data-category="@project.PropertyType">
+                        <div class="project-image">
+                            @if (!string.IsNullOrEmpty(project.CoverImageUrl))
+                            {
+                                <img src="@project.CoverImageUrl" alt="@project.ProfileName" />
+                            }
+                            else
+                            {
+                                <div class="image-placeholder">No Image</div>
+                            }
+                        </div>
+                        <div class="project-overlay">
+                            <button class="project-view-btn" onclick="location.href='/Portfolio/Details/@project.ProfileId'">View Project →</button>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-type">@project.PropertyType</div>
+                            <h3>@project.ProfileName</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- View All Button -->
+            <div class="view-all-container">
+                <a href="/Portfolio" class="btn btn-outline">View All Projects →</a>
+            </div>
+        }
+        else
+        {
+            <div class="no-projects">
+                <p>We're putting the finishing touches on our portfolio — new projects coming soon.</p>
+            </div>
+        }
+    </div>
+</section>
+<!-- WHY CHOOSE US SECTION -->
+<section class="why-us-section">
+    <div class="container why-us-layout">
+        <div class="why-us-content">
+            <div class="section-label">WHY MURENDENI</div>
+            <h2 class="section-title">Designed with Precision. Delivered with Care.</h2>
+            <p class="why-us-description">
+                We combine architectural rigor with a genuine focus on how you'll live and work in the space. Every drawing set is built to be buildable — no surprises for you or your contractor.
+            </p>
+            <ul class="why-us-list">
+                <li><i class="fa-solid fa-check"></i> Code-compliant drawings, reviewed twice before handoff</li>
+                <li><i class="fa-solid fa-check"></i> Fixed-scope quotes, no mid-project surprises</li>
+                <li><i class="fa-solid fa-check"></i> Direct access to your lead architect throughout the project</li>
+            </ul>
+        </div>
+        <div class="why-us-stats">
+            <div class="stat-card">
+                <span class="stat-number">120+</span>
+                <span class="stat-label">Projects Delivered</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">15</span>
+                <span class="stat-label">Years of Experience</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Client Satisfaction</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">40+</span>
+                <span class="stat-label">Contractor Partners</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROCESS SECTION -->
+<section class="process-section">
+    <div class="container">
+        <div class="section-label">HOW WE WORK</div>
+        <h2 class="section-title">From First Sketch to Final Signoff</h2>
+
+        <div class="process-grid">
+            <div class="process-step">
+                <span class="process-number">01</span>
+                <h3>Consultation</h3>
+                <p>We start by understanding your site, budget, and vision — no cookie-cutter templates.</p>
+            </div>
+            <div class="process-step">
+                <span class="process-number">02</span>
+                <h3>Concept &amp; Design</h3>
+                <p>Initial layouts and 3D renders let you see and adjust the design before drafting begins.</p>
+            </div>
+            <div class="process-step">
+                <span class="process-number">03</span>
+                <h3>Drafting &amp; Documentation</h3>
+                <p>Detailed, code-compliant drawings and construction documents ready for permitting and build.</p>
+            </div>
+            <div class="process-step">
+                <span class="process-number">04</span>
+                <h3>Build Support</h3>
+                <p>We stay involved through construction, resolving questions with your contractor as they come up.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+    <div class="container cta-layout">
+        <h2 class="cta-title">Have a Project in Mind?</h2>
+        <p class="cta-description">Tell us about your site and vision — we'll get back to you within one business day.</p>
+        <a href="/Contact" class="btn btn-primary">Start Your Project</a>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.462.0/umd/lucide.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.getAttribute('data-category');
+
+                // Filter projects
+                projectCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (category === 'all' || cardCategory === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>

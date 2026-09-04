@@ -1,0 +1,58 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.AddEmployeeModel
+@{
+    ViewData["Title"] = "Add Employee";
+}
+
+<h1>Add Employee</h1>
+
+@if (Model.GeneratedPassword != null)
+{
+    <div class="admin-alert-success">
+        Employee added. Temporary password: <strong>@Model.GeneratedPassword</strong>
+    </div>
+}
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<form method="post">
+    <div class="admin-form-field">
+        <label asp-for="Input.FullName">Full Name</label>
+        <input asp-for="Input.FullName" />
+        <span asp-validation-for="Input.FullName"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Email">Email</label>
+        <input asp-for="Input.Email" />
+        <span asp-validation-for="Input.Email"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Role">Role</label>
+        <select asp-for="Input.Role">
+            <option value="Admin">Admin</option>
+            <option value="Designer">Designer</option>
+            <option value="Sales">Sales</option>
+        </select>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.TemporaryPassword">Temporary Password (optional)</label>
+        <input asp-for="Input.TemporaryPassword" placeholder="Leave blank to auto-generate" />
+    </div>
+
+    <button type="submit" class="admin-btn admin-btn-accent">Add Employee</button>
+</form>
+
+<h2 style="margin-top:36px;">Current Employees</h2>
+
+<table class="admin-table">
+    <thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+    <tbody>
+        @foreach (var employee in Model.ExistingEmployees)
+        {
+            <tr><td>@employee.FullName</td><td>@employee.Email</td><td>@employee.Role</td></tr>
+        }
+    </tbody>
+</table>

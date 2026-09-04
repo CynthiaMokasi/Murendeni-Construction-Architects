@@ -1,0 +1,50 @@
+﻿@page "{id:int}"
+@model MurendeniConstructionArchitects.Pages.Admin.EditEmployeeModel
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<h1>Edit Employee</h1>
+
+@if (Model.SuccessMessage != null)
+{
+    <div class="admin-alert-success">@Model.SuccessMessage</div>
+}
+
+@if (Model.IsThisTheOnlyAdmin)
+{
+    <div class="admin-alert-success" style="background:#fdeee9; color:#98452c; border-color:#f3cabb;">
+        This is currently the only Admin account. You won't be able to change its role
+        away from Admin until another employee is promoted to Admin.
+    </div>
+}
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<form method="post" style="max-width:420px;">
+    <div class="admin-form-field">
+        <label asp-for="Input.FullName">Full Name</label>
+        <input asp-for="Input.FullName" />
+        <span asp-validation-for="Input.FullName"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Email">Email</label>
+        <input asp-for="Input.Email" />
+        <span asp-validation-for="Input.Email"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Role">Role</label>
+        <select asp-for="Input.Role">
+            <option value="Admin">Admin</option>
+            <option value="Designer">Designer</option>
+            <option value="Sales">Sales</option>
+        </select>
+        <span asp-validation-for="Input.Role"></span>
+    </div>
+
+    <button type="submit" class="admin-btn admin-btn-accent">Save Changes</button>
+</form>
+
+<p style="margin-top:20px;"><a href="/Admin/ManageEmployees">&laquo; Back to Manage Employees</a></p>

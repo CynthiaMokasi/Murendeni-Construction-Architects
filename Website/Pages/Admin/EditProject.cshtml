@@ -1,0 +1,123 @@
+﻿@page "{id:int}"
+@model MurendeniConstructionArchitects.Pages.Admin.EditProjectModel
+@{
+    ViewData["Title"] = "Edit Project";
+}
+
+<h1>Edit Project</h1>
+
+@if (Model.SuccessMessage != null)
+{
+    <div class="admin-alert-success">@Model.SuccessMessage</div>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="admin-form-field">
+        <label asp-for="Input.ProfileName">Project Name</label>
+        <input asp-for="Input.ProfileName" />
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.EmployeeId">Assigned Employee</label>
+        <select asp-for="Input.EmployeeId">
+            @foreach (var employee in Model.Employees)
+            {
+                <option value="@employee.EmployeeId">@employee.FullName (@employee.Role)</option>
+            }
+        </select>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.PropertyType">Property Type</label>
+        <select asp-for="Input.PropertyType">
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+        </select>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Status">Status</label>
+        <select asp-for="Input.Status">
+            <option value="Inquiry">Inquiry</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Review">Review</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Location">Location</label>
+        <input asp-for="Input.Location" />
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.YearCompleted">Year Completed</label>
+        <input asp-for="Input.YearCompleted" type="number" />
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Description">Description</label>
+        <textarea asp-for="Input.Description"></textarea>
+    </div>
+
+    @if (Model.CurrentRole == "Admin")
+    {
+        <div class="admin-form-field">
+            <label>Cover Image</label>
+
+            @if (!string.IsNullOrEmpty(Model.CurrentCoverImageUrl))
+            {
+                <img src="@Model.CurrentCoverImageUrl" alt="Current cover image"
+                     style="max-width:220px; display:block; margin-bottom:10px; border-radius:4px;" />
+            }
+            else
+            {
+                <p style="color:#888; font-size:0.85rem; margin-bottom:10px;">No cover image set yet.</p>
+            }
+
+            <input asp-for="Input.CoverImageFile" type="file" accept="image/*" />
+            <p style="color:#888; font-size:0.8rem; margin-top:4px;">Leave blank to keep the current image.</p>
+        </div>
+
+        <div class="admin-form-field">
+            <label>
+                <input asp-for="Input.IsPublished" type="checkbox" style="width:auto; margin-right:8px;" />
+                Show on public Portfolio page
+            </label>
+        </div>
+
+        <div class="admin-form-field">
+            <label>
+                <input asp-for="Input.IsFeatured" type="checkbox" style="width:auto; margin-right:8px;" />
+                Feature on Home page
+            </label>
+        </div>
+    }
+
+    <button type="submit" class="admin-btn admin-btn-accent">Save Changes</button>
+</form>
+
+<h2 style="margin-top:36px;">Design Files</h2>
+
+@if (Model.ExistingFiles.Count == 0)
+{
+    <div class="admin-empty">No files uploaded yet.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead><tr><th>File</th><th>Status</th><th>Date</th></tr></thead>
+        <tbody>
+            @foreach (var file in Model.ExistingFiles)
+            {
+                <tr>
+                    <td>@file.DesignTitle</td>
+                    <td><span class="badge badge-@file.Status">@file.Status</span></td>
+                    <td>@file.CreatedAt.ToString("dd MMM yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p style="margin-top:20px;"><a href="/Admin/ManageProjects">&laquo; Back to Manage Projects</a></p>

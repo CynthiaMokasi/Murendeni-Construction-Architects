@@ -1,0 +1,73 @@
+﻿@page "{id:int}"
+@model MurendeniConstructionArchitects.Pages.Portal.ProjectDetailsModel
+@{
+    ViewData["Title"] = Model.Project.ProfileName;
+}
+
+<h1>@Model.Project.ProfileName</h1>
+<p><span class="badge badge-@Model.Project.Status.ToString().ToLower()">@Model.Project.Status</span> &middot; @Model.Project.PropertyType</p>
+
+@if (!string.IsNullOrEmpty(Model.Project.CoverImageUrl))
+{
+    <img src="@Model.Project.CoverImageUrl" alt="@Model.Project.ProfileName"
+         style="width:100%; max-width:700px; aspect-ratio:16/9; object-fit:cover; border-radius:6px; margin:16px 0;" />
+}
+
+@if (!string.IsNullOrEmpty(Model.Project.Description))
+{
+    <p style="max-width:700px;">@Model.Project.Description</p>
+}
+
+<div class="admin-stat-card" style="margin:20px 0; max-width:600px;">
+    @{
+        var stages = new[] { "Inquiry", "InProgress", "Review", "Completed" };
+        var currentIndex = Array.IndexOf(stages, Model.Project.Status.ToString());
+    }
+    <ol style="display:flex; gap:16px; list-style:none; padding:0; margin:0;">
+        @for (int i = 0; i < stages.Length; i++)
+        {
+            bool reached = i <= currentIndex;
+            <li style="opacity:@(reached ? "1" : "0.4"); font-weight:@(i == currentIndex ? "700" : "400");">
+                @stages[i]
+            </li>
+        }
+    </ol>
+    <p style="margin-top:14px; color:#777; font-size:0.85rem;">Last updated: @Model.Project.UpdatedAt.ToString("dd MMM yyyy")</p>
+</div>
+
+<h2>Design Files</h2>
+
+@if (Model.Files.Count == 0)
+{
+    <div class="admin-empty">No files have been uploaded for this project yet.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead><tr><th>File</th><th>Status</th><th>Date</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var file in Model.Files)
+            {
+                <tr>
+                    <td>@file.DesignTitle</td>
+                    <td><span class="badge badge-@file.Status">@file.Status</span></td>
+                    <td>@file.CreatedAt.ToString("dd MMM yyyy")</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(file.FileUrl))
+                        {
+                            <a href="@file.FileUrl" target="_blank" rel="noopener">View</a>
+                            <span style="color:#ccc; margin:0 4px;">|</span>
+                            <a href="@file.FileUrl" download>Download</a>
+                        }
+                        else
+                        {
+                            <span style="color:#999;">Not available</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p style="margin-top:24px;"><a href="/Portal/MyProjects">&laquo; Back to My Projects</a></p>

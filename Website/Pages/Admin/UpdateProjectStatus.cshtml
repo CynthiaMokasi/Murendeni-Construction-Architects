@@ -1,0 +1,51 @@
+﻿@page "{id:int}"
+@model MurendeniConstructionArchitects.Pages.Admin.UpdateProjectStatusModel
+@{
+    ViewData["Title"] = "Update Project Status";
+}
+
+<h1>@Model.Project.ProfileName</h1>
+<p style="color:#777;">Client: @(Model.Project.Client?.FullName ?? "-") &middot; @Model.Project.PropertyType</p>
+
+@if (Model.SuccessMessage != null)
+{
+    <div class="admin-alert-success">@Model.SuccessMessage</div>
+}
+
+<form method="post" style="max-width:400px; margin:20px 0;">
+    <div class="admin-form-field">
+        <label asp-for="Status">Status</label>
+        <select asp-for="Status">
+            <option value="Inquiry">Inquiry</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Review">Review</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+    <button type="submit" class="admin-btn admin-btn-accent">Save Status</button>
+</form>
+
+<h2>Design Files</h2>
+
+@if (Model.Files.Count == 0)
+{
+    <div class="admin-empty">No files uploaded yet. <a href="/Admin/UploadDesignFile">Upload one &rsaquo;</a></div>
+}
+else
+{
+    <table class="admin-table">
+        <thead><tr><th>File</th><th>Status</th><th>Date</th></tr></thead>
+        <tbody>
+            @foreach (var file in Model.Files)
+            {
+                <tr>
+                    <td>@file.DesignTitle</td>
+                    <td><span class="badge badge-@file.Status">@file.Status</span></td>
+                    <td>@file.CreatedAt.ToString("dd MMM yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p style="margin-top:20px;"><a href="/Admin/MyProjects">&laquo; Back to My Projects</a></p>

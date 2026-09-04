@@ -1,0 +1,79 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Admin.UploadDesignFileModel
+@{
+    ViewData["Title"] = "Upload Design Files";
+}
+
+<h1>Upload Design Files</h1>
+
+@if (Model.SuccessMessage != null)
+{
+    <div class="admin-alert-success">@Model.SuccessMessage</div>
+}
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<!-- enctype is required whenever a form includes a file input -->
+<form method="post" enctype="multipart/form-data">
+    <div class="admin-form-field">
+        <label asp-for="Input.ProfileId">Project</label>
+        <select asp-for="Input.ProfileId">
+            <option value="">Select a project</option>
+            @foreach (var project in Model.Projects)
+            {
+                <option value="@project.ProfileId">@project.ProfileName</option>
+            }
+        </select>
+        <span asp-validation-for="Input.ProfileId"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.DesignTitle">File Title</label>
+        <input asp-for="Input.DesignTitle" placeholder="e.g. Floor Plan - Rev 2" />
+        <span asp-validation-for="Input.DesignTitle"></span>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Status">Status</label>
+        <select asp-for="Input.Status">
+            <option value="draft">Draft</option>
+            <option value="review">Review</option>
+            <option value="approved">Approved</option>
+            <option value="archived">Archived</option>
+        </select>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.UploadedFile">File</label>
+        <input asp-for="Input.UploadedFile" type="file" />
+        <span asp-validation-for="Input.UploadedFile"></span>
+    </div>
+
+    <button type="submit" class="admin-btn admin-btn-accent">Upload File</button>
+</form>
+
+<h2 style="margin-top:36px;">Recent Uploads</h2>
+
+@if (Model.RecentUploads.Count == 0)
+{
+    <div class="admin-empty">No files uploaded yet.</div>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr><th>File</th><th>Project</th><th>Status</th><th>Date</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var file in Model.RecentUploads)
+            {
+                <tr>
+                    <td>@file.DesignTitle</td>
+                    <td>@(file.Profile?.ProfileName ?? "-")</td>
+                    <td><span class="badge badge-@file.Status">@file.Status</span></td>
+                    <td>@file.CreatedAt.ToString("dd MMM yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

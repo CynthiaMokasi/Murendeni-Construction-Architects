@@ -1,0 +1,71 @@
+﻿@page "{id:int}"
+@model MurendeniConstructionArchitects.Pages.Admin.ViewInquiryModel
+@{
+    ViewData["Title"] = "View Inquiry";
+}
+
+<h1>Inquiry Details</h1>
+
+
+<div class="admin-stat-card" style="max-width:600px; margin-bottom:24px;">
+    <p><strong>From:</strong> @(Model.Inquiry.Client?.FullName ?? Model.Inquiry.GuestName ?? "Unknown")</p>
+    <p><strong>Email:</strong> @(Model.Inquiry.Client?.Email ?? Model.Inquiry.GuestEmail ?? "-")</p>
+    <p><strong>Phone:</strong> @(Model.Inquiry.GuestPhone ?? "-")</p>
+    <p><strong>Service:</strong> @(Model.Inquiry.ServiceRequested ?? "-")</p>
+    <p><strong>Received:</strong> @Model.Inquiry.CreatedAt.ToString("dd MMM yyyy, HH:mm")</p>
+    <p><strong>Message:</strong></p>
+    <p style="white-space:pre-wrap;">@Model.Inquiry.Message</p>
+</div>
+
+@if (Model.GeneratedPassword != null)
+{
+    <div class="admin-alert-success">
+        @Model.SuccessMessage Temporary password: <strong>@Model.GeneratedPassword</strong>
+        &mdash; make sure to pass this on to the client.
+    </div>
+}
+else if (Model.SuccessMessage != null)
+{
+    <div class="admin-alert-success">@Model.SuccessMessage</div>
+}
+
+@if (Model.Inquiry.ClientId != null)
+{
+    <p style="margin-bottom:20px;">
+        <span class="badge badge-completed">Linked to client account</span>
+        <a href="/Admin/EditClient/@Model.Inquiry.ClientId" style="margin-left:10px;">View client &rsaquo;</a>
+    </p>
+}
+else if (!string.IsNullOrEmpty(Model.Inquiry.GuestEmail))
+{
+    <form method="post" asp-page-handler="CreateClient" style="margin-bottom:20px;">
+        <button type="submit" class="admin-btn admin-btn-accent">Create Client Account from this Inquiry</button>
+    </form>
+}
+
+<form method="post" style="max-width:420px;">
+    <div class="admin-form-field">
+        <label asp-for="Input.EmployeeId">Assign To</label>
+        <select asp-for="Input.EmployeeId">
+            <option value="">Unassigned</option>
+            @foreach (var employee in Model.Employees)
+            {
+                <option value="@employee.EmployeeId">@employee.FullName (@employee.Role)</option>
+            }
+        </select>
+    </div>
+
+    <div class="admin-form-field">
+        <label asp-for="Input.Status">Status</label>
+        <select asp-for="Input.Status">
+            <option value="Open">Open</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Closed">Closed</option>
+        </select>
+    </div>
+
+    <button type="submit" class="admin-btn admin-btn-accent">Save Changes</button>
+</form>
+
+<p style="margin-top:20px;"><a href="/Admin/ManageInquiries">&laquo; Back to Manage Inquiries</a></p>

@@ -1,0 +1,32 @@
+﻿@page
+@model MurendeniConstructionArchitects.Pages.Portal.MyProjectsModel
+@{
+    ViewData["Title"] = "My Projects";
+}
+
+<h1>My Projects</h1>
+
+@if (Model.Projects.Count == 0)
+{
+    <div class="admin-empty">You don't have any projects yet.</div>
+}
+else
+{
+    <table class="admin-table" style="margin-top:20px;">
+        <thead>
+            <tr><th>Project</th><th>Type</th><th>Location</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.Projects)
+            {
+                <tr>
+                    <td>@project.ProfileName</td>
+                    <td>@project.PropertyType</td>
+                    <td>@(project.Location ?? "-")</td>
+                    <td><span class="badge badge-@project.Status.ToString().ToLower()">@project.Status</span></td>
+                    <td><a href="/Portal/ProjectDetails/@project.ProfileId">View Details &rsaquo;</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
